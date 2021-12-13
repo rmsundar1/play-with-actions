@@ -20,21 +20,24 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Printing date in job 1
+        if: (${{ github.event.inputs.composer_install }} == 1)
         run: |
           echo date
           echo ${{ github.event.inputs.composer_install }}
-          echo ${{ github.event.inputs.composer_install == true }}
+          echo ${{ github.event.inputs.composer_install }}
   job2:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
       - name: Printing date in job 2
+        if: ${{ github.event.inputs.composer_install }}
         run: date
   job3:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
       - name: Printing date in job 1
+        if: (${{ github.event.inputs.composer_install }} == true)
         run: date
   job4:
     runs-on: macos-latest
@@ -42,5 +45,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Printing date in job 1
+        if: (${{ github.event.inputs.composer_install }} == 'true')
         run: date
       
