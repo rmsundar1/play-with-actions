@@ -3,7 +3,15 @@
 name: Test Job
 
 # Controls when the workflow will run
-on: push
+on: 
+  workflow_dispatch:
+    inputs:
+      composer_install:
+        type: boolean
+        description: Execute composer install for the project?
+        required: false
+        default: 'false'
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -12,7 +20,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Printing date in job 1
-        run: date
+        run: |
+          echo date
+          echo ${{ github.event.inputs.composer_install }}
+          echo ${{ github.event.inputs.composer_install == true }}
   job2:
     runs-on: windows-latest
     steps:
